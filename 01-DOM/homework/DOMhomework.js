@@ -61,7 +61,11 @@ function buildToDo(todo, index) {
   let toDoText = document.createElement("span")
   toDoText.innerHTML = (todo.description)
   toDoText.id = index
-  console.log(toDoText);
+  if (todo.complete == true){
+    toDoText.className = "completeText"
+  }
+  toDoShell.appendChild(toDoText)
+  return toDoShell
 }
 
 // La función 'buildToDos' debe crear un array de objetos toDo y devolverlo
@@ -71,6 +75,11 @@ function buildToDo(todo, index) {
 
 function buildToDos(toDos) {
   // Tu código acá:
+  // let arr = []
+  // let index = 0
+  // for (let element of toDos){
+  //   element = 
+  //}
 }
 
 // La función 'displayToDos' se va a encargar de que se vean los toDo's en pantalla
