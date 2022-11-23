@@ -1,4 +1,4 @@
-var traverseDomAndCollectElements = function(matchFunc, startEl) {
+var traverseDomAndCollectElements = function (matchFunc, startEl) {
   var resultSet = [];
 
   if (typeof startEl === "undefined") {
@@ -9,16 +9,17 @@ var traverseDomAndCollectElements = function(matchFunc, startEl) {
   // usa matchFunc para identificar elementos que matchien
 
   // TU CÓDIGO AQUÍ
-  
 };
 
 // Detecta y devuelve el tipo de selector
 // devuelve uno de estos tipos: id, class, tag.class, tag
 
-
-var selectorTypeMatcher = function(selector) {
+var selectorTypeMatcher = function (selector) {
   // tu código aquí
-  
+  if (selector[0] == "#") return "id"; //su primer caracter es un "#" -> es un id
+  if (selector[0] == ".") return "class"; //su primer caracter es un "." -> es una clase
+  if (selector.includes(".")) return "tag.class"; //su primer caracter no es ni un "." ni "#" pero contiene "." en algun lado ->tag class
+  return "tag"; //ninguna de las anteriores -> tag
 };
 
 // NOTA SOBRE LA FUNCIÓN MATCH
@@ -26,22 +27,33 @@ var selectorTypeMatcher = function(selector) {
 // parametro y devuelve true/false dependiendo si el elemento
 // matchea el selector.
 
-var matchFunctionMaker = function(selector) {
+var matchFunctionMaker = function (selector) {
+  //va a crear una funcion que devuelve true si el elemento analizado es del tipo que le digamos
+  //llama la funcion para saber que tipo de selector es
   var selectorType = selectorTypeMatcher(selector);
   var matchFunction;
-  if (selectorType === "id") { 
-   
+  if (selectorType === "id") {
+    selector = selector.slice(1);
+    matchFunction = (elemento) => elemento.id == selector;
   } else if (selectorType === "class") {
-    
+    selector = selector.slice(1);
+    matchFunction = (elemento) => elemento.classList.contains(selector);
   } else if (selectorType === "tag.class") {
-    
+    matchFunction = function (elemento) {
+      const aux = selector.indexOf(".");
+      const clase = selector.slice(aux + 1);
+      const tag = selector.slice(0, aux);
+      if (elemento.tagName.toLowerCase() == tag && elemento.classList.contains(clase)) return true;
+      else return false;
+    };
   } else if (selectorType === "tag") {
-    
+    matchFunction = (elemento) => elemento.tagName.toLowerCase() == selector;
   }
+
   return matchFunction;
 };
 
-var $ = function(selector) {
+var $ = function (selector) {
   var elements;
   var selectorMatchFunc = matchFunctionMaker(selector);
   elements = traverseDomAndCollectElements(selectorMatchFunc);
