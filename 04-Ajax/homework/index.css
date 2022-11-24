@@ -23,4 +23,9 @@
     border: 0px;
     border-radius: 10px;
     background-color: rgb(101, 219, 124)
+}.lista{
+    text-align: center;
+}
+#lista{
+    display: inline-block;
 }
