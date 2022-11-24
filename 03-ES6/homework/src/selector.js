@@ -49,12 +49,7 @@ var matchFunctionMaker = function (selector) {
       const separador = selector.indexOf(".");
       const clase = selector.slice(separador + 1);
       const tag = selector.slice(0, separador);
-      if (
-        elemento.tagName.toLowerCase() == tag &&
-        elemento.classList.contains(clase)
-      )
-        return true;
-      else return false;
+      return (elemento.tagName.toLowerCase() == tag && elemento.classList.contains(clase));
     };
   } else if (selectorType === "tag") {
     matchFunction = (elemento) => elemento.tagName.toLowerCase() == selector;
