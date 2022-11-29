@@ -18,7 +18,7 @@ export default function Bienvenido () {
       <h3 className={styles.subtitle}>{studentName}</h3>
       <ul className={styles.unorderedList}>
         {techSkills.map(skill => (
-          <li className={styles.listItem} key={skill}>{skill.tech}<img className={"style.listItem:hover"} src={skill.image} alt={skill.tech} /></li>
+          <li className={styles.listItem} key={skill}>{skill.tech}<img src={skill.image} alt={skill.tech} /></li>
         ))}
       </ul>
       <Botones alerts={alerts} />
